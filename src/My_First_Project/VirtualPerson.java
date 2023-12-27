@@ -3,6 +3,7 @@ package My_First_Project;
 class VirtualPerson {
     private String name;
 
+
     public VirtualPerson(String name) {
         this.name = name;
     }
