@@ -1,5 +1,6 @@
 package My_First_Project;
 
+
 public class JkDTO {
     private String userName;
     private String favoriteFood;
