@@ -1,6 +1,5 @@
 package My_First_Project;
 
-
 import java.util.Scanner;
 
 public class JkMain {
