@@ -6,6 +6,16 @@ public class MemberDTO {
     private String phoneNumber;
     private boolean loggedIn; // 로그인 상태를 저장하는 변수 추가
 
+    private int balance;
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -36,6 +46,17 @@ public class MemberDTO {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.loggedIn = false; // 초기값은 로그아웃 상태
+    }
+
+    @Override
+    public String toString() {
+        return "MemberDTO{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", loggedIn=" + loggedIn +
+                ", balance=" + balance +
+                '}';
     }
 
     // 게터, 세터 등 추가

@@ -1,9 +1,9 @@
 package My_First_Project.dto;
 
 public class ProductDTO {
-    private String name;
-    private int price;
-    private int quantity;
+    private String name; // 물건 이름
+    private int price; // 물건 가격
+    private int quantity; // 물건 갯수
 
     public String getName() {
         return name;
@@ -29,15 +29,6 @@ public class ProductDTO {
         this.quantity = quantity;
     }
 
-    @Override
-    public String toString() {
-        return "ProductDTO{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                '}';
-    }
-
     // 생성자, 게터, 세터 등 필요한 메서드 추가
 
     // 예시 생성자
@@ -45,6 +36,15 @@ public class ProductDTO {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDTO{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
     }
 
     // 게터, 세터 등 추가

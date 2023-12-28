@@ -35,6 +35,13 @@ public class MemberRepository {
         memberList.add(member);
     }
 
+    public static int deposit(MemberDTO member, int amount) {
+        // 계정에 입금
+        member.setBalance(member.getBalance() + amount);
+        return member.getBalance();
+    }
+
+
     // 회원가입 기능 추가
     public static MemberDTO signUp(String email, String password, String phoneNumber) {
         if (!isEmailExists(email)) {

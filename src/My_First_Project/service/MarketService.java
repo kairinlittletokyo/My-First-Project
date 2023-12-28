@@ -4,6 +4,9 @@ import My_First_Project.common.CommonVariables;
 import My_First_Project.dto.MemberDTO;
 import My_First_Project.dto.ProductDTO;
 import My_First_Project.repository.MemberRepository;
+import My_First_Project.repository.MarketRepository;
+
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +16,14 @@ public class MarketService {
     private Scanner scanner;
     private MemberDTO loggedInMember;
 
+
     private List<ProductDTO> productList;
 
     public MarketService(Scanner scanner) {
         this.scanner = scanner;
         this.productList = new ArrayList<>();
     }
+
 
     public void setProductList(List<ProductDTO> productList) {
         this.productList = productList;
@@ -46,14 +51,6 @@ public class MarketService {
     //
     // (이미 로그인한 상태에서만 사용 가능하도록)
 
-    public void checkmarket() {
-        if (loggedInMember != null && loggedInMember.isLoggedIn()) {
-            // 3번 메뉴 로직
-            System.out.println("마켓 조회 기능 실행");
-        } else {
-            System.out.println("로그인이 필요한 서비스입니다.");
-        }
-    }
 
     public void deposit() {
         if (loggedInMember != null && loggedInMember.isLoggedIn()) {
@@ -95,4 +92,24 @@ public class MarketService {
             System.out.println("이미 존재하는 이메일로 회원가입할 수 없습니다.");
         }
     }
+
+    public void checkmarket() {
+        if (loggedInMember != null) {
+            if (MarketRepository.hasProducts()) {
+                List<ProductDTO> products = MarketRepository.getAllProducts();
+                System.out.println("상점에 등록된 물건들:");
+
+                for (ProductDTO product : products) {
+                    System.out.println("상품명: " + product.getName() +
+                            ", 가격: " + product.getPrice() +
+                            ", 수량: " + product.getQuantity());
+                }
+            } else {
+                System.out.println("상점에 재고가 없습니다.");
+            }
+        } else {
+            System.out.println("로그인이 필요합니다.");
+        }
+    }
 }
+

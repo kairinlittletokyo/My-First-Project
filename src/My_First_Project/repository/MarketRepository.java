@@ -2,13 +2,27 @@ package My_First_Project.repository;
 
 import My_First_Project.dto.AccountDTO;
 import My_First_Project.dto.ClientDTO;
+import My_First_Project.dto.ProductDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MarketRepository {
+
+
     private static List<ClientDTO> clientDTOList = new ArrayList<>();
     private static List<AccountDTO> accountDTOList = new ArrayList<>();
+    private static List<ProductDTO> productList = new ArrayList<>();
+
+    public static boolean hasProducts() {
+        return !productList.isEmpty();
+    }
+
+    public static List<ProductDTO> getAllProducts() {
+        return new ArrayList<>(productList);
+    }
+
+
 
 
     //DTO가 두개이기 때문에 리스트 2개
@@ -21,6 +35,10 @@ public class MarketRepository {
         }
         return null;
     }
+
+
+
+
 
     // 어카운트 체크 입력 받은 계좌를 for문으로 계속 돌리면서
     // 일치하면 ClientDTO 리턴
@@ -82,6 +100,8 @@ public class MarketRepository {
         return bankingList;
     }
 
+
+
     public void transfer(String accountNumberFrom, String accountNumberTo, long money) {
         for (int i = 0; i < clientDTOList.size(); i++) {
             if (accountNumberFrom.equals(clientDTOList.get(i).getAccountNumber())) { // 보내는 사람 잔액, 거래 내역 처리
@@ -99,4 +119,8 @@ public class MarketRepository {
             }
         }
     }
+    public static void addProduct(ProductDTO product) {
+        productList.add(product);
+    }
+
 }
