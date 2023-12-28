@@ -53,13 +53,17 @@ public class MarketService {
 
 
     public void deposit() {
-        if (loggedInMember != null && loggedInMember.isLoggedIn()) {
-            // 4번 메뉴 로직
-            System.out.println("입금 기능 실행");
+        if (CommonVariables.loggedInMember != null) {
+            System.out.print("입금할 금액을 입력하세요: ");
+            int amount = scanner.nextInt();
+
+            int newBalance = MemberRepository.deposit(CommonVariables.loggedInMember, amount);
+            System.out.println("입금이 완료되었습니다. 현재 보유한 금액: " + newBalance);
         } else {
-            System.out.println("로그인이 필요한 서비스입니다.");
+            System.out.println("로그인이 필요합니다.");
         }
     }
+
 
     public void bankingList() {
         if (loggedInMember != null && loggedInMember.isLoggedIn()) {
@@ -94,22 +98,28 @@ public class MarketService {
     }
 
     public void checkmarket() {
-        if (loggedInMember != null) {
+        // 로그인 확인
+        if (CommonVariables.loggedInMember != null) {
             if (MarketRepository.hasProducts()) {
                 List<ProductDTO> products = MarketRepository.getAllProducts();
-                System.out.println("상점에 등록된 물건들:");
+
+                System.out.println("■■■■■■■■■■■블랙마켓에 오신 것을 환영합니다!■■■■■■■■■■■");
+                System.out.println("보유한 현금: " + CommonVariables.loggedInMember.getBalance() + "원");
 
                 for (ProductDTO product : products) {
                     System.out.println("상품명: " + product.getName() +
-                            ", 가격: " + product.getPrice() +
-                            ", 수량: " + product.getQuantity());
+                            "| 가격: " + product.getPrice() + "원" +
+                            "| 수량: " + product.getQuantity());
                 }
             } else {
                 System.out.println("상점에 재고가 없습니다.");
             }
+
+            // 로그인한 유저의 보유 금액 출력
         } else {
             System.out.println("로그인이 필요합니다.");
         }
     }
+
 }
 

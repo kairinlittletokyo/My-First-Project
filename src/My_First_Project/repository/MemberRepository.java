@@ -3,6 +3,7 @@ package My_First_Project.repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import My_First_Project.common.CommonVariables;
 import My_First_Project.dto.MemberDTO;
 
 public class MemberRepository {
@@ -11,11 +12,11 @@ public class MemberRepository {
     public static MemberDTO login(String email, String password) {
         for (MemberDTO member : memberList) {
             if (member.getEmail().equals(email) && member.getPassword().equals(password)) {
-                member.setLoggedIn(true);
-                return member; // 로그인 성공 시 해당 멤버 반환
+                CommonVariables.loggedInMember = member; // 로그인한 멤버 설정
+                return member;
             }
         }
-        return null; // 로그인 실패 시 null 반환
+        return null;
     }
 
     public static boolean isAdminModeEnabled(String email) {
