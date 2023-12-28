@@ -2,9 +2,11 @@ package My_First_Project.repository;
 
 import My_First_Project.dto.AccountDTO;
 import My_First_Project.dto.ClientDTO;
+import My_First_Project.dto.MemberDTO;
 import My_First_Project.dto.ProductDTO;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MarketRepository {
@@ -13,6 +15,7 @@ public class MarketRepository {
     private static List<ClientDTO> clientDTOList = new ArrayList<>();
     private static List<AccountDTO> accountDTOList = new ArrayList<>();
     private static List<ProductDTO> productList = new ArrayList<>();
+    private static final List<ProductDTO> products = new ArrayList<>();
 
     public static boolean hasProducts() {
         return !productList.isEmpty();
@@ -22,9 +25,26 @@ public class MarketRepository {
         return new ArrayList<>(productList);
     }
 
+    public static boolean purchaseProduct(MemberDTO loggedInMember, ProductDTO selectedProduct, int quantity) {
+        if (selectedProduct != null && selectedProduct.getQuantity() >= quantity) {
+            selectedProduct.decreaseQuantity(quantity);
+            return true;
+        }
+        return false;
+    }
 
+    public static ProductDTO getProductByName(String productName) {
+        for (ProductDTO product : products) {
+            if (product.getName().equalsIgnoreCase(productName)) {
+                return product;
+            }
+        }
+        return null;
+    }
 
-
+    public static List<ProductDTO> getProducts() {
+        return new ArrayList<>(products);
+    }
     //DTO가 두개이기 때문에 리스트 2개
 
     public ClientDTO accountCheck(String accountNumber) {
@@ -35,9 +55,6 @@ public class MarketRepository {
         }
         return null;
     }
-
-
-
 
 
     // 어카운트 체크 입력 받은 계좌를 for문으로 계속 돌리면서
@@ -57,6 +74,7 @@ public class MarketRepository {
         }
         return null;
     }
+
 
     public boolean deposit(String accountNumber, long money) {
         for (ClientDTO clientDTO : clientDTOList) {
@@ -101,7 +119,6 @@ public class MarketRepository {
     }
 
 
-
     public void transfer(String accountNumberFrom, String accountNumberTo, long money) {
         for (int i = 0; i < clientDTOList.size(); i++) {
             if (accountNumberFrom.equals(clientDTOList.get(i).getAccountNumber())) { // 보내는 사람 잔액, 거래 내역 처리
@@ -119,8 +136,35 @@ public class MarketRepository {
             }
         }
     }
+
     public static void addProduct(ProductDTO product) {
-        productList.add(product);
+        products.add(product);
     }
 
+    public static void printAllProducts() {
+        System.out.println("Market Inventory:");
+        for (ProductDTO product : products) {
+            System.out.println("Name: " + product.getName() +
+                    ", Price: " + product.getPrice() +
+                    ", Quantity: " + product.getQuantity());
+        }
+    }
+
+    public static boolean purchase(MemberDTO member, ProductDTO product, int quantity) {
+        // 물건의 총 가격 계산
+        int totalCost = product.getPrice() * quantity;
+
+        // 보유 금액이 충분한지 확인
+        if (member.getBalance() >= totalCost) {
+            // 보유 금액 차감
+            member.setBalance(member.getBalance() - totalCost);
+
+            // 물건의 재고 차감
+            product.setQuantity(product.getQuantity() - quantity);
+
+            return true; // 구입 성공
+        } else {
+            return false; // 잔액 부족으로 구입 실패
+        }
+    }
 }

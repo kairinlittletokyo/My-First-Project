@@ -47,5 +47,9 @@ public class ProductDTO {
                 '}';
     }
 
-    // 게터, 세터 등 추가
+    public void decreaseQuantity(int quantity) {
+        this.quantity -= quantity;
+
+        // 게터, 세터 등 추가
+    }
 }

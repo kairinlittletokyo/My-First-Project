@@ -29,6 +29,13 @@ public class MarketService {
         this.productList = productList;
     }
 
+    public void printBalance(MemberDTO member) {
+        if (member != null) {
+            System.out.println("고객님의 잔고: " + member.getBalance());
+        } else {
+            System.out.println("로그인이 필요합니다.");
+        }
+    }
 
     public void login() {
         System.out.print("이메일을 입력하세요: ");
@@ -97,29 +104,70 @@ public class MarketService {
         }
     }
 
-    public void checkmarket() {
-        // 로그인 확인
-        if (CommonVariables.loggedInMember != null) {
-            if (MarketRepository.hasProducts()) {
-                List<ProductDTO> products = MarketRepository.getAllProducts();
+    public boolean purchaseProduct(MemberDTO member, ProductDTO product, int quantity) {
+        if (member != null && product != null && quantity > 0) {
+            ProductDTO selectedProduct = MarketRepository.getProductByName(product.getName());
 
-                System.out.println("■■■■■■■■■■■블랙마켓에 오신 것을 환영합니다!■■■■■■■■■■■");
-                System.out.println("보유한 현금: " + CommonVariables.loggedInMember.getBalance() + "원");
+            if (selectedProduct != null) {
+                int totalPrice = selectedProduct.getPrice() * quantity;
+                if (member.getBalance() >= totalPrice && selectedProduct.getQuantity() >= quantity) {
+                    // 구매 가능한 경우
+                    member.setBalance(member.getBalance() - totalPrice);
+                    selectedProduct.setQuantity(selectedProduct.getQuantity() - quantity);
+                    // 구매 내역 추가 등의 로직도 추가 가능
+                    return true; // 구매 성공
+                } else {
+                    System.out.println("잔액이 부족하거나 해당 상품의 재고가 부족하여 구매할 수 없습니다.");
+                }
+            } else {
+                System.out.println("상품을 찾을 수 없습니다.");
+            }
+        }
+        return false; // 구매 실패
+    }
+
+    public void checkmarket() {
+        if (loggedInMember != null) {
+            List<ProductDTO> products = MarketRepository.getProducts();
+            if (!products.isEmpty()) {
+                System.out.println("상점에 등록된 물건들:");
 
                 for (ProductDTO product : products) {
                     System.out.println("상품명: " + product.getName() +
-                            "| 가격: " + product.getPrice() + "원" +
-                            "| 수량: " + product.getQuantity());
+                            ", 가격: " + product.getPrice() +
+                            ", 수량: " + product.getQuantity());
+                }
+
+                System.out.println("고객님의 잔고: " + loggedInMember.getBalance());
+
+                System.out.print("물건을 구매하시겠습니까? (Y/N): ");
+                String answer = scanner.next();
+                if (answer.equalsIgnoreCase("Y")) {
+                    System.out.print("구매할 물건의 이름을 입력하세요: ");
+                    String productName = scanner.next();
+
+                    // 물건 이름으로 해당 상품을 찾습니다.
+                    ProductDTO selectedProduct = MarketRepository.getProductByName(productName);
+
+                    if (selectedProduct != null) {
+                        System.out.print("구매할 수량을 입력하세요: ");
+                        int quantity = scanner.nextInt();
+
+                        // 물건 구입 시도
+                        if (purchaseProduct(loggedInMember, selectedProduct, quantity)) {
+                            System.out.println("구입이 완료되었습니다.");
+                        } else {
+                            System.out.println("구입이 실패하였습니다.");
+                        }
+                    } else {
+                        System.out.println("해당 상품이 존재하지 않습니다.");
+                    }
                 }
             } else {
                 System.out.println("상점에 재고가 없습니다.");
             }
-
-            // 로그인한 유저의 보유 금액 출력
         } else {
             System.out.println("로그인이 필요합니다.");
         }
     }
-
 }
-

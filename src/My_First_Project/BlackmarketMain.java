@@ -1,6 +1,7 @@
 package My_First_Project;
 
 import My_First_Project.common.CommonVariables;
+import My_First_Project.dto.MemberDTO;
 import My_First_Project.service.AdminService;
 import My_First_Project.service.MarketService;
 import My_First_Project.service.MemberService;
@@ -10,11 +11,11 @@ import java.util.Scanner;
 
 public class BlackmarketMain {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         MarketService marketService = new MarketService(scanner);
         AdminService adminService = new AdminService(new ArrayList<>(), scanner);
         MemberService memberService = new MemberService(scanner);
-
 
         boolean run = true;
         int selectNo = 0;

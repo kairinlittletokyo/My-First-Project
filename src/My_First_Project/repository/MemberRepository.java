@@ -53,5 +53,5 @@ public class MemberRepository {
             return null; // 이미 존재하는 이메일로 회원가입 실패
         }
     }
-    // 필요에 따라 더 많은 기능을 추가할 수 있습니다.
+
 }

@@ -21,25 +21,13 @@ public class AdminService {
         String productName = scanner.next();
 
         System.out.print(productName + "의 가격을 입력하세요: ");
-        int productPrice = 0;
-
-        // 가격을 입력할 때 정수가 아닌 입력이 들어오면 계속 반복하여 입력을 받습니다.
-        while (true) {
-            try {
-                productPrice = scanner.nextInt();
-                break; // 정수가 입력되었으면 반복문을 빠져나갑니다.
-            } catch (InputMismatchException e) {
-                scanner.next(); // 입력이 잘못되었을 경우 입력 버퍼를 비워줍니다.
-            }
-        }
-
-
+        int productPrice = scanner.nextInt();
 
         System.out.print("물건의 수량을 입력하세요: ");
         int productQuantity = scanner.nextInt();
 
-        // 입력받은 정보를 이용하여 ProductDTO를 생성하고, MarketRepository에 추가하는 로직을 추가하세요.
+        // 입력받은 정보를 이용하여 ProductDTO를 생성하고, MarketRepository에 추가하는 로직을 추가합니다.
         ProductDTO productDTO = new ProductDTO(productName, productPrice, productQuantity);
-        MarketRepository.addProduct(productDTO); // 이 부분을 추가해야 합니다.
+        MarketRepository.addProduct(productDTO);
     }
 }
