@@ -1,17 +1,29 @@
 package My_First_Project.service;
 
+import My_First_Project.common.CommonVariables;
 import My_First_Project.dto.MemberDTO;
+import My_First_Project.dto.ProductDTO;
 import My_First_Project.repository.MemberRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MarketService {
     private Scanner scanner;
     private MemberDTO loggedInMember;
 
+    private List<ProductDTO> productList;
+
     public MarketService(Scanner scanner) {
         this.scanner = scanner;
+        this.productList = new ArrayList<>();
     }
+
+    public void setProductList(List<ProductDTO> productList) {
+        this.productList = productList;
+    }
+
 
     public void login() {
         System.out.print("이메일을 입력하세요: ");
@@ -23,15 +35,15 @@ public class MarketService {
 
         if (loggedInMember != null) {
             System.out.println("로그인 성공!");
-            if (MemberRepository.isAdminModeEnabled(email)) {
-                System.out.println("관리자 모드 활성화! 6번(관리자 모드) 메뉴를 이용할 수 있습니다.");
-            }
         } else {
             System.out.println("로그인 실패. 이메일 또는 비밀번호를 확인하세요.");
         }
     }
 
-    // 나머지 메서드에서 loggedInMember를 사용할 때 null 체크를 반드시 해주어야 합니다.
+    public boolean hasProducts() {
+        return !productList.isEmpty();
+    }
+    //
     // (이미 로그인한 상태에서만 사용 가능하도록)
 
     public void checkmarket() {
@@ -73,7 +85,7 @@ public class MarketService {
         System.out.print("비밀번호를 입력하세요: ");
         String password = scanner.next();
         System.out.print("전화번호를 입력하세요: ");
-        String phoneNumber = scanner.next();
+        String phoneNumber = scanner.next(); // 이 부분을 올림
 
         loggedInMember = MemberRepository.signUp(email, password, phoneNumber);
 
