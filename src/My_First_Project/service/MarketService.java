@@ -3,6 +3,7 @@ package My_First_Project.service;
 import My_First_Project.common.CommonVariables;
 import My_First_Project.dto.MemberDTO;
 import My_First_Project.dto.ProductDTO;
+import My_First_Project.dto.PurchaseHistory;
 import My_First_Project.repository.MemberRepository;
 import My_First_Project.repository.MarketRepository;
 
@@ -13,6 +14,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MarketService {
+
+    private List<PurchaseHistory> purchaseHistories = new ArrayList<>();
     private Scanner scanner;
     private MemberDTO loggedInMember;
 
@@ -105,25 +108,32 @@ public class MarketService {
     }
 
     public boolean purchaseProduct(MemberDTO member, ProductDTO product, int quantity) {
+        // 구매 가능한 경우 처리
         if (member != null && product != null && quantity > 0) {
-            ProductDTO selectedProduct = MarketRepository.getProductByName(product.getName());
+            int totalPrice = product.getPrice() * quantity;
+            if (member.getBalance() >= totalPrice && product.getQuantity() >= quantity) {
+                // 구매 가능한 경우
+                member.setBalance(member.getBalance() - totalPrice);
+                product.setQuantity(product.getQuantity() - quantity);
 
-            if (selectedProduct != null) {
-                int totalPrice = selectedProduct.getPrice() * quantity;
-                if (member.getBalance() >= totalPrice && selectedProduct.getQuantity() >= quantity) {
-                    // 구매 가능한 경우
-                    member.setBalance(member.getBalance() - totalPrice);
-                    selectedProduct.setQuantity(selectedProduct.getQuantity() - quantity);
-                    // 구매 내역 추가 등의 로직도 추가 가능
-                    return true; // 구매 성공
-                } else {
-                    System.out.println("잔액이 부족하거나 해당 상품의 재고가 부족하여 구매할 수 없습니다.");
-                }
+                // 거래 내역 추가
+                PurchaseHistory purchaseHistory = new PurchaseHistory(member, product, quantity, totalPrice);
+                purchaseHistories.add(purchaseHistory);
+
+                return true; // 구매 성공
             } else {
-                System.out.println("상품을 찾을 수 없습니다.");
+                System.out.println("잔액이 부족하거나 해당 상품의 재고가 부족하여 구매할 수 없습니다.");
             }
         }
         return false; // 구매 실패
+    }
+
+    // 거래 내역 출력 메서드
+    public void printPurchaseHistories() {
+        System.out.println("거래 내역:");
+        for (PurchaseHistory history : purchaseHistories) {
+            System.out.println(history.toString());
+        }
     }
 
     public void checkmarket() {

@@ -68,4 +68,6 @@ public class MemberDTO {
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
+
+
 }

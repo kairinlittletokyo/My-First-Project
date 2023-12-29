@@ -35,7 +35,7 @@ public class BlackmarketMain {
             } else if (selectNo == 4) {
                 marketService.deposit(); // 입금
             } else if (selectNo == 5) {
-                marketService.bankingList(); // 거래내역 확인
+                marketService.printPurchaseHistories(); // 거래내역 확인
             } else if (selectNo == 6) {
                 boolean adminRun = true;
 
@@ -63,6 +63,7 @@ public class BlackmarketMain {
                         if (selectNo == 1) {
                             adminService.save(); // 물건 등록 기능 호출
                         } else if (selectNo == 2) {
+
 
                         } else if (selectNo == 3) {
 
