@@ -1,12 +1,8 @@
 package My_First_Project.repository;
 
-import My_First_Project.dto.AccountDTO;
-import My_First_Project.dto.ClientDTO;
 import My_First_Project.dto.MemberDTO;
 import My_First_Project.dto.ProductDTO;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MarketRepository {

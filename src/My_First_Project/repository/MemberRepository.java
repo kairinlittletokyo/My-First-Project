@@ -2,9 +2,10 @@ package My_First_Project.repository;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import My_First_Project.common.CommonVariables;
 import My_First_Project.dto.MemberDTO;
+import static My_First_Project.common.CommonVariables.loggedInMember;
+
+
 
 public class MemberRepository {
     private static List<MemberDTO> memberList = new ArrayList<>();
@@ -12,7 +13,7 @@ public class MemberRepository {
     public static MemberDTO login(String email, String password) {
         for (MemberDTO member : memberList) {
             if (member.getEmail().equals(email) && member.getPassword().equals(password)) {
-                CommonVariables.loggedInMember = member; // 로그인한 멤버 설정
+                loggedInMember = member; // 로그인한 멤버 설정
                 return member;
             }
         }
@@ -53,5 +54,4 @@ public class MemberRepository {
             return null; // 이미 존재하는 이메일로 회원가입 실패
         }
     }
-
 }

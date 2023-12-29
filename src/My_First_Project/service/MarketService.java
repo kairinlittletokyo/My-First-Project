@@ -29,6 +29,11 @@ public class MarketService {
 
 
     public void login() {
+        if (loggedInMember != null) {
+            System.out.println("이미 로그인 되어있습니다.");
+            return;
+        }
+
         System.out.print("이메일을 입력하세요: ");
         String email = scanner.next();
         System.out.print("비밀번호를 입력하세요: ");
@@ -42,7 +47,6 @@ public class MarketService {
             System.out.println("로그인 실패. 이메일 또는 비밀번호를 확인하세요.");
         }
     }
-
 
     public void deposit() {
         if (CommonVariables.loggedInMember != null) {
@@ -113,7 +117,7 @@ public class MarketService {
         if (loggedInMember != null) {
             List<ProductDTO> products = MarketRepository.getProducts();
             if (!products.isEmpty()) {
-                System.out.println("상점에 등록된 물건들:");
+                System.out.println("■■■■■■■■■■■■■■■■ 블랙마켓에 오신 것을 환영합니다! ■■■■■■■■■■■■■■■■");
 
                 for (ProductDTO product : products) {
                     System.out.println("상품명: " + product.getName() +
@@ -154,3 +158,4 @@ public class MarketService {
         }
     }
 }
+

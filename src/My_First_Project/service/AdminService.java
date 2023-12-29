@@ -3,7 +3,6 @@ package My_First_Project.service;
 import My_First_Project.dto.ProductDTO;
 import My_First_Project.repository.MarketRepository;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
