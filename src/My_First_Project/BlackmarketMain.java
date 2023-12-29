@@ -63,10 +63,9 @@ public class BlackmarketMain {
                         if (selectNo == 1) {
                             adminService.save(); // 물건 등록 기능 호출
                         } else if (selectNo == 2) {
-
-
+                            adminService.update(); // 물건 수정
                         } else if (selectNo == 3) {
-
+                            adminService.delete(); // 물건 삭제
                         } else if (selectNo == 0) {
                             System.out.println("관리자 모드 종료");
                             adminRun = false;

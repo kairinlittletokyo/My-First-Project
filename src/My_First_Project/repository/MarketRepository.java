@@ -76,4 +76,10 @@ public class MarketRepository {
             return false; // 잔액 부족으로 구입 실패
         }
     }
+
+    public static void removeProduct(ProductDTO product) {
+        if (products != null) {
+            products.remove(product);
+        }
+    }
 }
