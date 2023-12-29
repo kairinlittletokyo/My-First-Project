@@ -75,7 +75,7 @@ public class ClientDTO {
         this.clientPass = clientPass;
         this.clientCreatedAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     } // 객체를 만드는 순간에 시간이 나오게끔
-    //새로운 고객을 등록 받을 때는 String 세 가지의 생성자만
+
 
     @Override
     public String toString() {

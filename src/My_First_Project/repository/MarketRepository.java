@@ -12,24 +12,8 @@ import java.util.List;
 public class MarketRepository {
 
 
-    private static List<ClientDTO> clientDTOList = new ArrayList<>();
-    private static List<AccountDTO> accountDTOList = new ArrayList<>();
-    private static List<ProductDTO> productList = new ArrayList<>();
     private static final List<ProductDTO> products = new ArrayList<>();
 
-    public static boolean hasProducts() {
-        return !productList.isEmpty();
-    }
-
-
-
-    public static boolean purchaseProduct(MemberDTO loggedInMember, ProductDTO selectedProduct, int quantity) {
-        if (selectedProduct != null && selectedProduct.getQuantity() >= quantity) {
-            selectedProduct.decreaseQuantity(quantity);
-            return true;
-        }
-        return false;
-    }
 
     public static ProductDTO getProductByName(String productName) {
         for (ProductDTO product : products) {

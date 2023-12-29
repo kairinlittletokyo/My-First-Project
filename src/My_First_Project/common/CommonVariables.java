@@ -6,14 +6,6 @@ public class CommonVariables {
 
         public static MemberDTO loggedInMember = null;
 
-        public static MemberDTO getLoggedInMember() {
-            return loggedInMember;
-        }
-
-        public static void setLoggedInMember(MemberDTO member) {
-            loggedInMember = member;
-        }
-
     public static Boolean adminLogin = null;
 }
 

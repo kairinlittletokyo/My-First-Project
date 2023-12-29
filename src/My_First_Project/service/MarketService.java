@@ -28,18 +28,6 @@ public class MarketService {
     }
 
 
-    public void setProductList(List<ProductDTO> productList) {
-        this.productList = productList;
-    }
-
-    public void printBalance(MemberDTO member) {
-        if (member != null) {
-            System.out.println("고객님의 잔고: " + member.getBalance());
-        } else {
-            System.out.println("로그인이 필요합니다.");
-        }
-    }
-
     public void login() {
         System.out.print("이메일을 입력하세요: ");
         String email = scanner.next();
@@ -55,12 +43,6 @@ public class MarketService {
         }
     }
 
-    public boolean hasProducts() {
-        return !productList.isEmpty();
-    }
-    //
-    // (이미 로그인한 상태에서만 사용 가능하도록)
-
 
     public void deposit() {
         if (CommonVariables.loggedInMember != null) {
@@ -74,15 +56,6 @@ public class MarketService {
         }
     }
 
-
-    public void bankingList() {
-        if (loggedInMember != null && loggedInMember.isLoggedIn()) {
-            // 5번 메뉴 로직
-            System.out.println("거래내역 확인 기능 실행");
-        } else {
-            System.out.println("로그인이 필요한 서비스입니다.");
-        }
-    }
 
     public void save() {
         System.out.print("이메일을 입력하세요: ");

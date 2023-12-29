@@ -1,7 +1,6 @@
 package My_First_Project;
 
 import My_First_Project.common.CommonVariables;
-import My_First_Project.dto.MemberDTO;
 import My_First_Project.service.AdminService;
 import My_First_Project.service.MarketService;
 import My_First_Project.service.MemberService;
