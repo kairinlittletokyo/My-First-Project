@@ -65,9 +65,6 @@ public class ClientDTO {
     private static Long idValue = 1L;
     //ID값을 부여하기 위한 변수
 
-    public ClientDTO() {
-    }
-
     public ClientDTO(String clientName, String accountNumber, String clientPass) {
         this.id = idValue++; //자동으로 늘어나는 Id
         this.clientName = clientName; //위에 string에서 전달 받은 값을 필드값으로
